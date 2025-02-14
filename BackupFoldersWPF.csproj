@@ -15,6 +15,7 @@
     <None Remove="Images\Clear.png" />
     <None Remove="Images\Exit.png" />
     <None Remove="Images\Folder.png" />
+    <None Remove="Images\registryicongreen64px.png" />
     <None Remove="Images\Registry_32px.png" />
     <None Remove="Images\zip.png" />
     <None Remove="Images\zipbackup.png" />
@@ -37,6 +38,7 @@
     <Resource Include="Images\Clear.png" />
     <Resource Include="Images\Exit.png" />
     <Resource Include="Images\Folder.png" />
+    <Resource Include="Images\registryicongreen64px.png" />
     <Resource Include="Images\Registry_32px.png" />
     <Resource Include="Images\zip.png" />
     <Resource Include="Images\zipbackup.png" />

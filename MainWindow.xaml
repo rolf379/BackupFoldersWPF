@@ -165,7 +165,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                         <TextBlock Text="Remove From Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="AddBackupToRegistry" Click="AddBackupToRegistry_Click" Background="Transparent" Width="200" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 0 0">
+                <Button x:Name="AddBackupToRegistry" Click="AddBackupToRegistry_Click" Background="Transparent" Width="180" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 0 0">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <Image Source="/Images/registryicongreen64px.png" Height="64"/>
                         <TextBlock Text="Add To Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
@@ -174,7 +174,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                 <StackPanel Orientation="Vertical" Margin="0 30 0 0">
                     
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Compression Progress" FontSize="14" FontFamily="Arial" Foreground="White" Margin="0 3 0 0"/>
+                        <TextBlock Text="Compression Progress" FontSize="14" FontFamily="Arial" Foreground="White" Margin="10 3 0 0"/>
                         <TextBox x:Name="SavedEntriesTextBox" Height="30" Width="120" Margin="10 0 0 0" FontSize="16" TextAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0"/>
                         <ProgressBar x:Name="progressBar" Height="30" Width="270" Value="0" Minimum="0" Maximum="100" Margin="40 0 0 0" Background="Transparent"/>
                     </StackPanel>
