@@ -100,7 +100,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                 
                     <Button x:Name="Create7ZipFile"  Background="Transparent"  Margin="40 5 0 0" BorderThickness="0" Click="Create7ZipFile_Click">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <Image Source="/Images/7zip.png" Height="64" Width="92"/>
                         <TextBlock Text="Create 7Zip File" Foreground="White" FontSize="14" FontFamily="Arial"/>
                     </StackPanel>
 
