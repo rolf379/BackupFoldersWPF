@@ -1,0 +1,183 @@
+﻿<Window x:Class="BackupFoldersWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackupFoldersWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="510" MinHeight="510" MaxHeight="510" Width="1120" MinWidth="1120" MaxWidth="1120">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="DarkBlue"/>
+            <GradientStop Color="CornflowerBlue" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+       
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="290"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="5">
+            <Border BorderThickness="1" BorderBrush="White">
+                <StackPanel>
+            <StackPanel Orientation="Horizontal"  Height="160" Margin="5">
+                <TextBlock x:Name="BackupFormArchiveToLabel" Text="Archive To [Drive:\]_ASP\ BackupFolder" 
+                 Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Width="100" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Vertical" Margin="20 0 40 0" Height="60">
+                    <TextBlock Text="Select Drive" FontSize="14" FontFamily="Arial" Foreground="White"/>
+                    <ComboBox x:Name="BackupFormDrivesCombo" Height="30" Margin="0 5 0 0" Width="80" FontFamily="Arial" FontSize="20" Foreground="MidnightBlue" MouseEnter="BackupFormDrivesCombo_MouseEnter"/>
+                </StackPanel>
+                <Button x:Name="CompressWithExclude"  Background="Transparent"  Margin="10 5 0 0" BorderThickness="0" Click="CompressWithExclude_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <TextBlock Text="Select Folders To Exclude" Style="{StaticResource TextBlockFontStyle14}" Width="70" TextWrapping="Wrap" TextAlignment="Center" Margin="0 0 20 0"/>
+                    </StackPanel>
+
+                </Button>
+                <StackPanel Orientation="Vertical" Height="150" Margin="0 5 0 0">
+                    <TextBox x:Name="FoldersExcludeListTextBox" Height="120" Width="200" FontFamily="Arial" FontSize="16" Padding="5"
+                             PreviewDragEnter="FoldersExcludeListTextBox_PreviewEnter" PreviewDragOver="FoldersExcludeListTextBox_PreviewDragOver" PreviewDrop="FoldersExcludeListTextBox_PreviewDrop"
+                             />
+                    <CheckBox x:Name="FoldersRegexMatchCheckBox" Margin="0 5 0 0" Height="30" IsChecked="True" Content="Folders Regex Match" FontSize="14" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="100" Height="140"  Margin="0 10 0 60">
+                    <CheckBox x:Name="binFolderCheckBox" Margin="10 0 0 0" IsChecked="True" Content="bin" Foreground="White" FontSize="14"/>
+                    <CheckBox x:Name="objFolderCheckBox" Margin="10 10 0 0" IsChecked="True" Content="obj" Foreground="White" FontSize="14" />
+                    <CheckBox x:Name="tmpFolderCheckBox" Margin="10 10 0 0" IsChecked="True" Content="Temp" Foreground="White" FontSize="14" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Height="150"  Margin="0 5 0 0">
+                            <TextBox x:Name="FilesExcludeTextBox" Height="120" Width="200" Padding="5"
+                             PreviewDragEnter="FilesExcludeTextBox_PreviewEnter" PreviewDragOver="FilesExcludeTextBox_PreviewDragOver" PreviewDrop="FilesExcludeTextBox_PreviewDrop"
+                             />
+                    <CheckBox x:Name="FilesRegexMatchCheckBox" Margin="0 5 0 0" IsChecked="True" Content="Files Regex Match" FontSize="14" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="40 0 0 0">
+                    <Button x:Name="FolderFileExecludeClear" Background="Transparent" Margin="5" BorderThickness="0" Click="FolderFileExecludeClear_Click">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/Clear.png" Height="64" Width="64"/>
+                            <TextBlock Text="Clear Execlude Folder" Foreground="White" FontSize="14" FontFamily="Arial" Width="70" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="ExtractFolders"  Background="Transparent"  Margin="10 5 0 0" BorderThickness="0" Click="ExtractFolders_Click">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/zipbackup.png" Height="64" Width="64"/>
+                            <TextBlock Text="Extract Folder" Foreground="White" FontSize="14" FontFamily="Arial" Width="70" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </StackPanel>
+
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="20">
+                        <TextBlock Text="Use (.)* At End of Statement For Regex Match. Remove All Spcace Characters." Height="15" TextAlignment="Center" Width="1100" FontFamily="Arial" FontSize="14" Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+                       
+        </StackPanel>
+        
+        
+        <StackPanel Orientation="Vertical" Height="260" Grid.Row="1" Margin="5">
+            <Border BorderThickness="1" BorderBrush="White">
+            <StackPanel Orientation="Horizontal" Height="160">
+                <Button x:Name="CompressToUSB" Background="Transparent" Margin="5" BorderThickness="0" Click="CompressToUSB_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <TextBlock Text="Backup To USB" Foreground="White" FontSize="14" FontFamily="Arial"/>
+                    </StackPanel>
+                </Button>
+                    <Button x:Name="Create7ZipFile"  Background="Transparent"  Margin="10 5 0 0" BorderThickness="0" Click="Create7ZipFile_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <TextBlock Text="Create 7Zip File" Foreground="White" FontSize="14" FontFamily="Arial"/>
+                    </StackPanel>
+
+                </Button>
+                <Button x:Name="CompressFoldersFiles"  Background="Transparent" BorderThickness="0" Margin="10 25 0 0" Click="CompressFoldersFiles_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <TextBlock Text="Compress And Progress Folders" Foreground="White" TextWrapping="Wrap" Height="40" Width="120" TextAlignment="Center" FontSize="14" FontFamily="Arial"/>
+                    </StackPanel>
+
+                </Button>
+                <StackPanel Margin="10 40 0 0">
+                    <Button x:Name="BackupToLocalAppButton"  Background="Transparent" BorderThickness="0"  Margin="0 5 0 0" Click="BackupToLocalAppButton_Click" Width="100">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/zipfile48.png" Height="54" Width="64" />
+                            <TextBlock Text="Compress To Backup Folder" Foreground="White" FontSize="14" FontFamily="Arial" Width="100" TextAlignment="Center" TextWrapping="Wrap" Margin="0 5 0 0"/>
+                        </StackPanel>
+
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Margin="0 18 0 0">
+                        
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="30 0 0 0">
+                        <Button x:Name="LoadFolder" Click="LoadFolder_Click" Background="Transparent" BorderThickness="0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/Folder.png" Height="50" Margin="0 20 0 5"/>
+                        </StackPanel>
+
+                    </Button>
+                    <Button x:Name="BackupFormClearFolderName"  Background="Transparent" BorderThickness="0" Click="BackupFormClearFolderName_Click">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/Clear.png" Height="50" Width="50" />
+                        </StackPanel>
+
+                    </Button>
+                </StackPanel>
+                <StackPanel Margin="10 20 0 0" Orientation="Vertical" Width="495">
+                    <TextBox x:Name="CompressTextBox" Height="105" Width="490" 
+                             TextWrapping="Wrap" FontFamily="Arial" FontSize="16" Padding="5"
+                             PreviewDragEnter="CompressTextBox_PreviewEnter" PreviewDragOver="CompressTextBox_PreviewDragOver" PreviewDrop="CompressTextBox_PreviewDrop"/>
+                        <StackPanel Orientation="Horizontal" Margin="10 10 0 0" >
+                            <CheckBox x:Name="ClearCompressCheckBox" IsChecked="True" Content="Clear On Drop" FontSize="14" Foreground="White" Margin="20 0 10 0"/>
+                            <CheckBox x:Name="DirectDropBackupCheckBox"  Content="Create On Drop" FontSize="14" Foreground="White" Margin="20 0 10 0"/>
+                            <RadioButton x:Name="TarGzRadioButton" IsChecked="False" Margin="0 2 0 0"/>
+                            <TextBlock Text="Tar.gz" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
+                            <RadioButton x:Name="SevenZipRadioButton" IsChecked="False" Margin="0 2 0 0"/>
+                            <TextBlock Text="7z" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
+                            <RadioButton x:Name="ZipRadioButton" IsChecked="False" Margin="0 2 0 0"/>
+                            <TextBlock Text="Zip" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
+                        </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" Height="80">
+                <Button x:Name="RemoveRegistryKey" Click="RemoveRegistryKey_Click" Background="Transparent" Width="230" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 10 0">
+                    <StackPanel Orientation="Horizontal" Width="230">
+                        <Image Source="/Images/Registry_32px.png" Height="54"/>
+                        <TextBlock Text="Remove From Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="AddBackupToRegistry" Click="AddBackupToRegistry_Click" Background="Transparent" Width="200" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 0 0">
+                    <StackPanel Orientation="Horizontal" Width="180">
+                        <Image Source="/Images/Registry_32px.png" Height="54"/>
+                        <TextBlock Text="Add To Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Vertical" Margin="0 30 0 0">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Compression Progress" FontSize="14" FontFamily="Arial" Foreground="White" Margin="0 3 0 0"/>
+                        <TextBox x:Name="SavedEntriesTextBox" Height="30" Width="120" Margin="10 0 0 0" FontSize="16" TextAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                        <ProgressBar x:Name="progressBar" Height="30" Width="270" Value="0" Minimum="0" Maximum="100" Margin="40 0 0 0" Background="Transparent"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="ExitBackupForm" Click="ExitBackupForm_Click" Background="Transparent" Width="64" BorderThickness="0" HorizontalAlignment="Right" Margin="10 0 20 0">
+                    <Image Source="/Images/Exit.png" Height="64"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
