@@ -30,9 +30,8 @@
                 <StackPanel>
             <StackPanel Orientation="Horizontal"  Height="160" Margin="5">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock x:Name="BackupFormArchiveToLabel" Text="Archive To [Drive:\]_ASP\ BackupFolder" 
-                 Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Width="100" TextWrapping="Wrap"/>
-                            <Button x:Name="CompressToUSB" Background="Transparent" Margin="5 10 0 0" BorderThickness="0" Click="CompressToUSB_Click">
+                            
+                            <Button x:Name="CompressToUSB" Background="Transparent" Margin="5 60 0 0" BorderThickness="0" Click="CompressToUSB_Click">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
                                     <TextBlock Text="Backup To USB" Foreground="White" FontSize="14" FontFamily="Arial"/>
@@ -41,8 +40,9 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="20 10 40 0" Height="150">
                     
-                    <ComboBox x:Name="BackupFormDrivesCombo" Height="30" Margin="0 110 0 0" Width="80" FontFamily="Arial" FontSize="20" Foreground="MidnightBlue" MouseEnter="BackupFormDrivesCombo_MouseEnter"/>
-                            
+                    <ComboBox x:Name="BackupFormDrivesCombo" Height="30" Margin="0 50 0 0" Width="80" FontFamily="Arial" FontSize="20" Foreground="MidnightBlue" MouseEnter="BackupFormDrivesCombo_MouseEnter"/>
+                            <TextBlock x:Name="BackupFormArchiveToLabel" Text="Archive To [Drive:\]_ASP\ BackupFolder" 
+Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Width="100" TextWrapping="Wrap"/>
                         </StackPanel>
                 <Button x:Name="CompressWithExclude"  Background="Transparent"  Margin="10 5 0 0" BorderThickness="0" Click="CompressWithExclude_Click">
                     <StackPanel Orientation="Vertical">
