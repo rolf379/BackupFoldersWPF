@@ -31,9 +31,9 @@
             <StackPanel Orientation="Horizontal"  Height="160" Margin="5">
                         <StackPanel Orientation="Vertical">
                             
-                            <Button x:Name="CompressToUSB" Background="Transparent" Margin="5 60 0 0" BorderThickness="0" Click="CompressToUSB_Click">
+                            <Button x:Name="CompressToUSB" Background="Transparent" Margin="5 40 0 0" BorderThickness="0" Click="CompressToUSB_Click">
                                 <StackPanel Orientation="Vertical">
-                                    <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                                    <Image Source="/Images/usb.png" Height="92" Width="92"/>
                                     <TextBlock Text="Backup To USB" Foreground="White" FontSize="14" FontFamily="Arial"/>
                                 </StackPanel>
                             </Button>
@@ -44,9 +44,9 @@
                             <TextBlock x:Name="BackupFormArchiveToLabel" Text="Archive To [Drive:\]_ASP\ BackupFolder" 
 Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Width="100" TextWrapping="Wrap"/>
                         </StackPanel>
-                <Button x:Name="CompressWithExclude"  Background="Transparent"  Margin="10 5 0 0" BorderThickness="0" Click="CompressWithExclude_Click">
+                <Button x:Name="CompressWithExclude"  Background="Transparent"  Margin="0 5 0 0" BorderThickness="0" Click="CompressWithExclude_Click">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <Image Source="/Images/Folder.png" Height="64" Width="64" Margin="0 0 15 0"/>
                         <TextBlock Text="Select Folders To Exclude" Style="{StaticResource TextBlockFontStyle14}" Width="70" TextWrapping="Wrap" TextAlignment="Center" Margin="0 0 20 0"/>
                     </StackPanel>
 
@@ -107,7 +107,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                 </Button>
                 <Button x:Name="CompressFoldersFiles"  Background="Transparent" BorderThickness="0" Margin="50 25 0 0" Click="CompressFoldersFiles_Click">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/zipfile48.png" Height="54" Width="64"/>
+                        <Image Source="/Images/BackupProgress.png" Height="54" Width="64"/>
                         <TextBlock Text="Compress And Progress Folders" Foreground="White" TextWrapping="Wrap" Height="40" Width="120" TextAlignment="Center" FontSize="14" FontFamily="Arial"/>
                     </StackPanel>
 

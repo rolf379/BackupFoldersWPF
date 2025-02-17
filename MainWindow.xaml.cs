@@ -656,7 +656,7 @@ namespace BackupFoldersWPF
 
         private void FilesExcludeTextBox_PreviewDrop(object sender, DragEventArgs e)
         {
-            string[] Dropedfiles = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            string[] Dropedfiles = (string[])e.Data.GetData(DataFormats.FileDrop, false); 
             foreach (var file in Dropedfiles)
             {
                 string FileName = Path.GetFileName(file);
