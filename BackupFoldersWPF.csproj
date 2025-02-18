@@ -18,6 +18,7 @@
     <None Remove="Images\Folder.png" />
     <None Remove="Images\registryicongreen64px.png" />
     <None Remove="Images\Registry_32px.png" />
+    <None Remove="Images\usb.png" />
     <None Remove="Images\zip.png" />
     <None Remove="Images\zipbackup.png" />
     <None Remove="Images\zipfile48.png" />
@@ -42,6 +43,7 @@
     <Resource Include="Images\Folder.png" />
     <Resource Include="Images\registryicongreen64px.png" />
     <Resource Include="Images\Registry_32px.png" />
+    <Resource Include="Images\usb.png" />
     <Resource Include="Images\zip.png" />
     <Resource Include="Images\zipbackup.png" />
     <Resource Include="Images\zipfile48.png" />
