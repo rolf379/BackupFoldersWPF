@@ -1,0 +1,41 @@
+        private async void CompressFoldersFiles_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(CompressTextBox.Text))
+            {
+                MessageBox.Show("Please Select Folder.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                CompressTextBox.Focus();
+                return;
+            }
+
+            string path = CompressTextBox.Text.Replace(",", "");
+
+            DirectoryInfo parentDirectory = new DirectoryInfo(path);
+
+            string[] excludedDirectories = new string[] { Path.Combine(path, "bin"), Path.Combine(path, "obj") };
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                progressBar.Value = 0;
+                DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(path);
+
+                string ZipFileName = Path.GetFileNameWithoutExtension(path) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip";
+
+
+                await Task.Run(() =>
+                {
+                    using (Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile())
+                    {
+                        foreach (var file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+                        {
+                            if (!BackupAndCode.BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                            {
+                                string relativePath = Path.GetRelativePath(parentDirectory.Parent.FullName, file).Replace('\\', '/');
+                                zip.AddFile(file).FileName = relativePath;
+                                zip.SaveProgress += Zip_SaveProgress;
+                            }
+                        }
+                        zip.Save(Path.Combine(ParentDirectoryBackup.Parent.FullName, ZipFileName));
+                    }
+                });
+            }
+        }

@@ -1,0 +1,60 @@
+        public static void CompressFolder(string sourceFilePath)
+        {
+            DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(sourceFilePath);
+            string destinationFile = Path.Combine(ParentDirectoryBackup.Parent.FullName, Path.GetFileNameWithoutExtension(sourceFilePath) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".7z");
+            // Create TAR archive
+            using (var archive = new Aspose.Zip.Tar.TarArchive()) {
+                // Add files to archive
+                string[] IncludedFiles = Directory.GetFiles(sourceFilePath,"*",SearchOption.AllDirectories);
+
+                foreach (var SingleFile in IncludedFiles)
+                    archive.CreateEntry(Path.GetFileName(SingleFile), SingleFile, true);
+
+                // Compress TAR into tar.gz file
+                archive.SaveLZMACompressed(destinationFile, Aspose.Zip.Tar.TarFormat.UsTar);
+            }
+
+        }
+
+
+        Using LINQ
+        var subfolders = Directory.GetDirectories(path).Where(d => !d.StartsWith("bin") && !d.StartsWith("obj")).Select(d => new DirectoryInfo(d));
+
+
+
+
+        if (string.IsNullOrEmpty(CompressTextBox.Text))
+            {
+                MessageBox.Show("Please Select Folder.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                CompressTextBox.Focus();
+                return;
+            }
+
+            string path = CompressTextBox.Text.Replace(",", "");
+            DirectoryInfo parentDirectory = new DirectoryInfo(path);
+
+            string folderPath = Environment.SpecialFolder.MyDocuments.MY_XM_ExtendSpecialFolder("BackupFolder");
+
+
+            string destinationFile = Path.Combine(folderPath, Path.GetFileName(path),
+                                                   Path.GetFileNameWithoutExtension(path) +
+                                                   DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip");
+
+            string[] excludedDirectories = new string[] { Path.Combine(path, "bin"), Path.Combine(path, "obj") };
+
+            
+
+            var DeleteBinObj = MessageBox.Show("Are You Sure To Delete bin/obj Directories?", "Delete bin/obj Directories", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (DeleteBinObj == MessageBoxResult.Yes)
+            {
+                Directory.Delete(Path.Combine(path, "bin"), true);
+                Directory.Delete(Path.Combine(path, "obj"), true);
+
+                if (!string.IsNullOrEmpty(path))
+                {
+
+                    using (FileStream destfile = new FileStream(destinationFile, FileMode.OpenOrCreate))
+                        ZipFile.CreateFromDirectory(path, destfile, CompressionLevel.Fastest, true);
+                }
+            }

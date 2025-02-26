@@ -1,0 +1,133 @@
+private async void DirectBackupDrop()
+        {
+            string[] pathArray = CompressTextBox.Text.Split(',');
+
+            foreach (var path in pathArray)
+            {
+
+                if (!string.IsNullOrEmpty(path))
+                {
+                    //progressBar.Value = 0;
+                    DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(path);
+
+                    string ZipFileName = Path.GetFileNameWithoutExtension(path) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip";
+
+
+                    await Task.Run(() =>
+                    {
+                        string ZipFileName = Path.GetFileNameWithoutExtension(path) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip";
+                        SevenZip.Compression.LZMA.Encoder coder = new SevenZip.Compression.LZMA.Encoder();
+
+                        const int chunkSize = 4096 * 4096;
+                        byte[] buffer = new byte[chunkSize];
+
+
+                        using (MemoryStream input = new MemoryStream())
+                        {
+                            string[] files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+                            foreach (var file in files)
+                            {
+                                byte[] fileContent = new byte[input.Length];
+                                input.Read(fileContent, 0, (int)input.Length);
+
+                                byte[] fileNameBytes = Encoding.UTF8.GetBytes(file + Environment.NewLine);
+                                input.Write(fileNameBytes, 0, fileNameBytes.Length);
+                                int byteRead;
+                                while ((byteRead = input.Read(buffer, 0, chunkSize)) > 0)
+                                {
+                                    input.Write(fileContent, 0, fileContent.Length);
+                                }
+                            }
+                            FileStream output = new FileStream(Path.Combine(ParentDirectoryBackup.Parent.FullName, ZipFileName), FileMode.Create);
+
+                            // Write the encoder properties
+                            coder.WriteCoderProperties(output);
+
+                            // Write the decompressed file size.
+                            output.Write(BitConverter.GetBytes(input.Length), 0, 8);
+
+                            // Encode the file.
+                            coder.Code(input, output, input.Length, -1, null);
+                            output.Flush();
+                            output.Close();
+                        }
+                    });
+                }
+            }
+        }
+
+
+
+ private async void DirectBackupDrop()
+        {
+            string[] pathArray = CompressTextBox.Text.Split(',');
+
+            foreach (var path in pathArray)
+            {
+
+                if (!string.IsNullOrEmpty(path))
+                {
+                    //progressBar.Value = 0;
+                    DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(path);
+
+
+                    await Task.Run(() =>
+                    {
+                        string ZipFileName = Path.GetFileNameWithoutExtension(path) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip";
+                        SevenZip.Compression.LZMA.Encoder coder = new SevenZip.Compression.LZMA.Encoder();
+                        try
+                        {
+                            FileStream input = new FileStream(path, FileMode.CreateNew);
+                            FileStream output = new FileStream(Path.Combine(ParentDirectoryBackup.Parent.FullName, ZipFileName), FileMode.Create);
+
+                            // Write the encoder properties
+                            coder.WriteCoderProperties(output);
+
+                            // Write the decompressed file size.
+                            output.Write(BitConverter.GetBytes(input.Length), 0, 8);
+
+                            // Encode the file.
+                            coder.Code(input, output, input.Length, -1, null);
+                            output.Flush();
+                            output.Close();
+                        }
+                        catch (UnauthorizedAccessException UnAuthEx)
+                        {
+                            MessageBox.Show(UnAuthEx.Message);
+                        }
+                    });
+                }
+            }
+        }
+
+
+
+ private void DirectBackupDrop(string DropedPath)
+        {
+
+            string sevenZipPath = @"C:\Program Files\7-Zip\7z.exe";
+
+            DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(DropedPath);
+
+            string destinationFile = Path.Combine(ParentDirectoryBackup.Parent.FullName, Path.GetFileNameWithoutExtension(DropedPath) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".zip");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = sevenZipPath,
+                Arguments = $"a -t7z \"{destinationFile}\" \"{DropedPath}\"", WindowStyle = ProcessWindowStyle.Hidden, CreateNoWindow = true, UseShellExecute = false
+            };
+
+            try
+            {
+                using (Process process = Process.Start(startInfo))
+                {
+                    process.WaitForExit();
+                }
+
+                Console.WriteLine("Compression completed successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during compression: " + ex.Message);
+            }
+        }

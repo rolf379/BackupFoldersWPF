@@ -1,0 +1,45 @@
+public static void CompressFolder2(string sourceFolderPath)
+        {
+            DirectoryInfo parentDirectory = new DirectoryInfo(sourceFolderPath);
+            string destinationFile = Path.Combine(parentDirectory.Parent.FullName,
+                                                   Path.GetFileNameWithoutExtension(sourceFolderPath) +
+                                                   DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".gz");
+
+            // Create TAR archive
+            using (var archive = new Aspose.Zip.Tar.TarArchive())
+            {
+                // Add files to archive
+                AddDirectoryToTar(archive, parentDirectory, parentDirectory.FullName);
+
+                // Save TAR to temporary file
+                string tempTarFile = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(destinationFile) + ".tar");
+                using (FileStream tarStream = System.IO.File.Create(tempTarFile))
+                {
+                    archive.Save(tarStream, TarFormat.UsTar);
+                }
+
+                // Compress TAR into 7z file using LZMA
+                using (var archive7z = new SevenZipArchive(new SevenZipEntrySettings(null)))
+                {
+                    archive7z.CreateEntry(Path.GetFileName(tempTarFile), tempTarFile);
+                    archive7z.Save(destinationFile);
+                }
+
+                // Optionally, delete the temporary TAR file after compression
+                System.IO.File.Delete(tempTarFile);
+            }
+        }
+
+        private static void AddDirectoryToTar(Aspose.Zip.Tar.TarArchive archive, DirectoryInfo directory, string rootPath)
+        {
+            foreach (var file in directory.GetFiles())
+            {
+                string relativePath = Path.GetRelativePath(rootPath, file.FullName).Replace('\\', '/');
+                archive.CreateEntry(relativePath, file.OpenRead());
+            }
+
+            foreach (var subDirectory in directory.GetDirectories())
+            {
+                AddDirectoryToTar(archive, subDirectory, rootPath);
+            }
+        }

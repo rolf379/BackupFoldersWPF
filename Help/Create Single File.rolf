@@ -1,0 +1,14 @@
+        //Create Single File Checkbox Not Selected (Create Tar.gz With Exclude)
+        private void CreateLZMA(string sourceFilePath)
+        {
+            DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(sourceFilePath);
+            string destinationFile = Path.Combine(ParentDirectoryBackup.Parent.FullName, Path.GetFileNameWithoutExtension(sourceFilePath) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".7z");
+            SevenZip.Compression.LZMA.Encoder encoder = new SevenZip.Compression.LZMA.Encoder();
+            using (FileStream inputStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read))
+            using (FileStream outputStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write))
+            {
+                encoder.WriteCoderProperties(outputStream);
+                outputStream.Write(BitConverter.GetBytes(inputStream.Length), 0, 8);
+                encoder.Code(inputStream, outputStream, inputStream.Length, -1, null);
+            }
+        }
