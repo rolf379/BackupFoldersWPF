@@ -108,7 +108,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                 <Button x:Name="CompressFoldersFiles"  Background="Transparent" BorderThickness="0" Margin="50 25 0 0" Click="CompressFoldersFiles_Click">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/BackupProgress.png" Height="54" Width="64"/>
-                        <TextBlock Text="Compress And Progress Folders" Foreground="White" TextWrapping="Wrap" Height="40" Width="120" TextAlignment="Center" FontSize="14" FontFamily="Arial"/>
+                            <TextBlock Text="Compress Folders With Progress" Foreground="White" TextWrapping="Wrap" Height="40" Width="120" TextAlignment="Center" FontSize="14" FontFamily="Arial"/>
                     </StackPanel>
 
                 </Button>
