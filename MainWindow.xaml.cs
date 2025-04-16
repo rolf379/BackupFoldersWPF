@@ -471,8 +471,8 @@ namespace BackupFoldersWPF
         private void RemoveRegistryKey_Click(object sender, RoutedEventArgs e)
         {
             RegistryKey _key = Registry.CurrentUser.OpenSubKey("Software\\Classes\\Directory\\shell", true);
-            _key.DeleteSubKey("CompressFolder\\Command");
-            _key.DeleteSubKey("CompressFolder");
+            _key.DeleteSubKey("BackupFolderWPF\\Command");
+            _key.DeleteSubKey("BackupFolderWPF");
             _key.Close();
         }
 
@@ -480,8 +480,8 @@ namespace BackupFoldersWPF
         {
 
             RegistryKey rootKey = Registry.CurrentUser;
-            RegistryKey subKey = rootKey.CreateSubKey("Software\\Classes\\Directory\\shell\\CompressFolder");
-            subKey.SetValue("", "Open in CompressFolder");
+            RegistryKey subKey = rootKey.CreateSubKey("Software\\Classes\\Directory\\shell\\BackupFolderWPF");
+            subKey.SetValue("", "Open in BackupFolderWPF");
             subKey.SetValue("Icon", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             subKey.CreateSubKey("command").SetValue("", "\"" + System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName + "\"" + " \"" + "%1" + "\"");
             subKey.Close();
