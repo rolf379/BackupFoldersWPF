@@ -480,8 +480,8 @@ namespace BackupFoldersWPF
         {
 
             RegistryKey rootKey = Registry.CurrentUser;
-            RegistryKey subKey = rootKey.CreateSubKey("Software\\Classes\\Directory\\shell\\MediaConvertersWPF");
-            subKey.SetValue("", "Open in MediaConvertersWPF");
+            RegistryKey subKey = rootKey.CreateSubKey("Software\\Classes\\Directory\\shell\\CompressFolder");
+            subKey.SetValue("", "Open in CompressFolder");
             subKey.SetValue("Icon", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             subKey.CreateSubKey("command").SetValue("", "\"" + System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName + "\"" + " \"" + "%1" + "\"");
             subKey.Close();
