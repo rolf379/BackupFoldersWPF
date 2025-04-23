@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackupFoldersWPF"
+        xmlns:controls="clr-namespace:BackupFoldersWPF.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="510" MinHeight="510" MaxHeight="510" Width="1120" MinWidth="1120" MaxWidth="1120">
     <Window.Background>
@@ -158,19 +159,7 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
             </StackPanel>
             </Border>
             <StackPanel Orientation="Horizontal" Height="80">
-                <Button x:Name="RemoveRegistryKey" Click="RemoveRegistryKey_Click" Background="Transparent" Width="230" BorderThickness="0" HorizontalAlignment="Right" Margin="5 0 10 0">
-                    <StackPanel Orientation="Horizontal" Width="230">
-                        <Image Source="/Images/registryicongreen64px.png" Height="64" />
-
-                        <TextBlock Text="Remove From Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="AddBackupToRegistry" Click="AddBackupToRegistry_Click" Background="Transparent" Width="180" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 0 0">
-                    <StackPanel Orientation="Horizontal" Width="180">
-                        <Image Source="/Images/registryicongreen64px.png" Height="64"/>
-                        <TextBlock Text="Add To Registry" Foreground="White" FontSize="14" FontFamily="Arial" Margin="10 30 0 0"/>
-                    </StackPanel>
-                </Button>
+                <controls:RegestryUserControl/>
                 <StackPanel Orientation="Vertical" Margin="0 30 0 0">
                     
                     <StackPanel Orientation="Horizontal" Margin="20 0 20 0">
