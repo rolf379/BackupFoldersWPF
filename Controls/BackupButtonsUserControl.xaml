@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="BackupFoldersWPF.Controls.BackupButtonsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BackupFoldersWPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="170" d:DesignWidth="580">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Height="160">
+        <Button x:Name="Create7ZipFile"  Background="Transparent"  Margin="40 5 0 0" BorderThickness="0" Click="Create7ZipFile_Click">
+            <StackPanel Orientation="Vertical">
+                <Image Source="/Images/7zip.png" Height="64" Width="92"/>
+                <TextBlock Text="Create 7Zip File" Foreground="White" FontSize="14" FontFamily="Arial"/>
+            </StackPanel>
+
+        </Button>
+        <Button x:Name="CompressFoldersFiles"  Background="Transparent" BorderThickness="0" Margin="50 25 0 0" Click="CompressFoldersFiles_Click">
+            <StackPanel Orientation="Vertical">
+                <Image Source="/Images/BackupProgress.png" Height="54" Width="64"/>
+                <TextBlock Text="Compress Folders With Progress" Foreground="White" TextWrapping="Wrap" Height="40" Width="120" TextAlignment="Center" FontSize="14" FontFamily="Arial"/>
+            </StackPanel>
+
+        </Button>
+        <StackPanel Margin="10 40 0 0">
+            <Button x:Name="BackupToLocalAppButton"  Background="Transparent" BorderThickness="0"  Margin="50 5 10 0" Click="BackupToLocalAppButton_Click" Width="100">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/Images/zipfile48.png" Height="54" Width="64" />
+                    <TextBlock Text="Compress To Backup Folder" Foreground="White" FontSize="14" FontFamily="Arial" Width="100" TextAlignment="Center" TextWrapping="Wrap" Margin="0 5 0 0"/>
+                </StackPanel>
+
+            </Button>
+            <StackPanel Orientation="Horizontal" Margin="0 18 0 0">
+
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="30 0 0 0">
+            <Button x:Name="LoadFolder" Click="LoadFolder_Click" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/Images/Folder.png" Height="50" Margin="0 20 0 5"/>
+                </StackPanel>
+
+            </Button>
+            <Button x:Name="BackupFormClearFolderName"  Background="Transparent" BorderThickness="0" Click="BackupFormClearFolderName_Click">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/Images/Clear.png" Height="50" Width="50" />
+                </StackPanel>
+
+            </Button>
+        </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
