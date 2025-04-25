@@ -121,10 +121,11 @@ namespace BackupFoldersWPF
 
             string sevenZipPath = @"C:\Program Files\7-Zip\7z.exe";
 
+            string folderPath = Environment.SpecialFolder.MyDocuments.MY_XM_ExtendSpecialFolder("BackupFolder");
 
             DirectoryInfo ParentDirectoryBackup = new DirectoryInfo(DropedPath);
 
-            string destinationFile = Path.Combine(ParentDirectoryBackup.Parent.FullName, Path.GetFileNameWithoutExtension(DropedPath) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".7z");
+            string destinationFile = Path.Combine(folderPath, Path.GetFileNameWithoutExtension(ParentDirectoryBackup.FullName), Path.GetFileNameWithoutExtension(DropedPath) + DateTime.Now.ToString("-yyyy-MM-dd HH-mm-ss") + ".7z");
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
