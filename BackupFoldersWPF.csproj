@@ -1,52 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <StartupObject>BackupFoldersWPF.Program</StartupObject>
-    <ApplicationIcon>compress.ico</ApplicationIcon>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net8.0-windows</TargetFramework>
+	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<UseWPF>true</UseWPF>
+	<StartupObject>BackupFoldersWPF.Program</StartupObject>
+	<ApplicationIcon>compress.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\7zip.png" />
-    <None Remove="Images\BackupProgress.png" />
-    <None Remove="Images\Clear.png" />
-    <None Remove="Images\Exit.png" />
-    <None Remove="Images\Folder.png" />
-    <None Remove="Images\registryicongreen64px.png" />
-    <None Remove="Images\Registry_32px.png" />
-    <None Remove="Images\usb.png" />
-    <None Remove="Images\zip.png" />
-    <None Remove="Images\zipbackup.png" />
-    <None Remove="Images\zipfile48.png" />
+	<None Remove="Images\7zip.png" />
+	<None Remove="Images\BackupProgress.png" />
+	<None Remove="Images\Clear.png" />
+	<None Remove="Images\Exit.png" />
+	<None Remove="Images\Folder.png" />
+	<None Remove="Images\registryicongreen64px.png" />
+	<None Remove="Images\Registry_32px.png" />
+	<None Remove="Images\usb.png" />
+	<None Remove="Images\zip.png" />
+	<None Remove="Images\zipbackup.png" />
+	<None Remove="Images\zipfile48.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="compress.ico" />
+	<Content Include="compress.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreSQLConnection6" Version="1.0.17" />
-    <PackageReference Include="LZMA-SDK" Version="22.1.1" />
-    <PackageReference Include="ProDotNetZip" Version="1.20.0" />
-    <PackageReference Include="SharpCompress" Version="0.38.0" />
+	<PackageReference Include="CoreSQLConnection6" Version="1.0.17" />
+	<PackageReference Include="LZMA-SDK" Version="22.1.1" />
+	<PackageReference Include="ProDotNetZip" Version="1.20.0" />
+	<PackageReference Include="SharpCompress" Version="0.38.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\7zip.png" />
-    <Resource Include="Images\BackupProgress.png" />
-    <Resource Include="Images\Clear.png" />
-    <Resource Include="Images\Exit.png" />
-    <Resource Include="Images\Folder.png" />
-    <Resource Include="Images\registryicongreen64px.png" />
-    <Resource Include="Images\Registry_32px.png" />
-    <Resource Include="Images\usb.png" />
-    <Resource Include="Images\zip.png" />
-    <Resource Include="Images\zipbackup.png" />
-    <Resource Include="Images\zipfile48.png" />
+	<Resource Include="Images\7zip.png" />
+	<Resource Include="Images\BackupProgress.png" />
+	<Resource Include="Images\Clear.png" />
+	<Resource Include="Images\Exit.png" />
+	<Resource Include="Images\Folder.png" />
+	<Resource Include="Images\registryicongreen64px.png" />
+	<Resource Include="Images\Registry_32px.png" />
+	<Resource Include="Images\usb.png" />
+	<Resource Include="Images\zip.png" />
+	<Resource Include="Images\zipbackup.png" />
+	<Resource Include="Images\zipfile48.png" />
   </ItemGroup>
 
 </Project>
