@@ -5,9 +5,8 @@ using System.Windows.Input;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.IO.Compression;
-using Microsoft.Win32;
 using System.Text.RegularExpressions;
-using CoreSQLConnection6;
+using static CoreSQLConnection6.BackupAndCode;
 using static CoreSQLConnection6.My_XM_ReadFileClass;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -15,7 +14,6 @@ using SharpCompress.Archives;
 using SharpCompress.Common;
 using SharpCompress.Archives.Tar;
 using SharpCompress.Writers;
-using SevenZip;
 
 
 
@@ -243,7 +241,7 @@ namespace BackupFoldersWPF
             {
                 foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
                 {
-                    if (!BackupAndCode.BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                    if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
                     {
                         archive.AddEntry(Path.GetRelativePath(ParentDirectory, file), file);
                     }
@@ -390,7 +388,7 @@ namespace BackupFoldersWPF
 
             string folderPath = BackupFormDrivesCombo.Text + @"_ASP\BackupFolder\";
 
-            BackupAndCode.BackupClass backupClass = new BackupAndCode.BackupClass();
+            BackupClass backupClass = new BackupClass();
             backupClass.ZipFolders(folderPath, FolderNamesArray, excludeFileList, excludeDirList);
         }
 
