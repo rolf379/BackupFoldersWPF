@@ -77,7 +77,10 @@ namespace BackupFoldersWPF.Controls
                                 zip.SaveProgress += MainWindow.Instance.Zip_SaveProgress;
                             }
                         }
-
+                        if (!Directory.Exists(Directory.GetParent(ZipFileName).ToString()))
+                        {
+                            Directory.CreateDirectory(Directory.GetParent(ZipFileName).ToString());
+                        }
                         // Save the ZIP archive to the destination path
                         zip.Save(ZipFileName);
                     }
