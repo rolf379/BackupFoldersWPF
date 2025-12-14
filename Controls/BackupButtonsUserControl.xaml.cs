@@ -1,5 +1,5 @@
-﻿using CoreSQLConnection6;
-using static CoreSQLConnection6.My_XM_ReadFileClass;
+﻿using static GlobalAssemblyBackup.BackupAndCode;
+using static GlobalAssemblyReadFilesClass.My_XM_ReadFileClass;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -65,7 +65,7 @@ namespace BackupFoldersWPF.Controls
                         foreach (var file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
                         {
                             // Check if the file is not in an excluded directory
-                            if (!BackupAndCode.BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                            if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
                             {
                                 // Get the relative path of the file
                                 string relativePath = Path.GetRelativePath(parentDirectory.Parent.FullName, file).Replace('\\', '/');
@@ -151,7 +151,7 @@ namespace BackupFoldersWPF.Controls
 
             string folderPath = Environment.SpecialFolder.MyDocuments.MY_XM_ExtendSpecialFolder("BackupFolder");
 
-            BackupAndCode.BackupClass backupClass = new BackupAndCode.BackupClass();
+            BackupClass backupClass = new BackupClass();
             backupClass.ZipFolders(folderPath, FolderNamesArray, excludeFileList, excludeDirList);
 
 
