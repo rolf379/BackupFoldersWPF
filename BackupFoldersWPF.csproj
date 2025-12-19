@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
-	<TargetFramework>net10.0-windows</TargetFramework>
+	<TargetFramework>net10.0-windows10.0.17763</TargetFramework>
 	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="GlobalAssemblyBackup" Version="1.0.0.1" />
-	<PackageReference Include="GlobalAssemblyReadFilesClass" Version="1.0.0" />
+	<PackageReference Include="GlobalAssemblyBackup" Version="1.0.2" />
+	<PackageReference Include="GlobalAssemblyReadFilesClass" Version="1.0.3" />
 	<PackageReference Include="LZMA-SDK" Version="22.1.1" />
 	<PackageReference Include="ProDotNetZip" Version="1.20.0" />
 	<PackageReference Include="SharpCompress" Version="0.42.1" />
