@@ -25,10 +25,12 @@ namespace BackupFoldersWPF
     public partial class MainWindow : Window
     {
         private int SecondsCounter = 0; public static MainWindow Instance { get; private set; }
+        private System.Windows.Forms.NotifyIcon _notifyIcon;
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
+            SetupTrayIcon();
         }
 
         string FolderPath = "";
@@ -41,6 +43,7 @@ namespace BackupFoldersWPF
                 GetExplorerFolderName();
             }
             Instance = this;
+            SetupTrayIcon();
         }
         ArrayList selectedFolder = new ArrayList();
 
@@ -521,5 +524,41 @@ namespace BackupFoldersWPF
             }
         }
 
+        private void SetupTrayIcon()
+        {
+            _notifyIcon = new System.Windows.Forms.NotifyIcon();
+
+            // You must provide an .ico file for it to show up
+            _notifyIcon.Icon = new System.Drawing.Icon("compress.ico");
+            _notifyIcon.Visible = true;
+            _notifyIcon.Text = "Folder Backup Tool";
+
+            // Restore the window when the tray icon is double-clicked
+            _notifyIcon.DoubleClick += (s, args) =>
+            {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+            };
+
+            // Add a simple context menu
+            _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            _notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) => Application.Current.Shutdown());
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.Hide(); // Removes it from the taskbar
+            }
+            base.OnStateChanged(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _notifyIcon.Dispose(); // Clean up resources
+            base.OnClosed(e);
+        }
     }
+
 }
