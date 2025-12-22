@@ -529,12 +529,12 @@ namespace BackupFoldersWPF
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
 
             // You must provide an .ico file for it to show up
-            _notifyIcon.Icon = new System.Drawing.Icon("compress.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) +  @"\Dr. Abdulrahman Albawardi\BackupFoldersWPF\compress.ico");
             _notifyIcon.Visible = true;
             _notifyIcon.Text = "Folder Backup Tool";
 
             // Restore the window when the tray icon is double-clicked
-            _notifyIcon.DoubleClick += (s, args) =>
+            _notifyIcon.Click += (s, args) =>
             {
                 this.Show();
                 this.WindowState = WindowState.Normal;
