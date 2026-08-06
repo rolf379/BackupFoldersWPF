@@ -12,7 +12,6 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using SharpCompress.Archives;
 using SharpCompress.Common;
-using SharpCompress.Archives.Tar;
 using SharpCompress.Writers;
 
 
@@ -238,21 +237,23 @@ namespace BackupFoldersWPF
 
         }
 
-        private void SelectTarGzType(string sourceDirectory, string[] excludedDirectories, string ParentDirectory, string destinationFile)
+        private void SelectTarGzType(string sourceDirectory, string[] excludedDirectories, string parentDirectory, string destinationFile)
         {
-            using (var archive = TarArchive.Create())
+            var writerOptions = new WriterOptions(CompressionType.GZip)
+            {
+                LeaveStreamOpen = false
+            };
+
+            using (var stream = File.Create(destinationFile))
+            using (var writer = WriterFactory.OpenWriter(stream, ArchiveType.Tar, writerOptions))
             {
                 foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
                 {
                     if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
                     {
-                        archive.AddEntry(Path.GetRelativePath(ParentDirectory, file), file);
+                        // Add file with relative path inside the tar.gz
+                        writer.Write(Path.GetRelativePath(parentDirectory, file), file);
                     }
-                }
-
-                using (var stream = File.Create(destinationFile))
-                {
-                    archive.SaveTo(stream, CompressionType.GZip);
                 }
             }
         }
@@ -280,21 +281,25 @@ namespace BackupFoldersWPF
             }
         }
 
-        static void SelectZipType(string sourceDirectory, string zipFilePath, string ParentDirectory)
+        static void SelectZipType(string sourceDirectory, string zipFilePath, string parentDirectory)
         {
-
-            using (var archive = SharpCompress.Archives.Zip.ZipArchive.Create())
+            var options = new WriterOptions(CompressionType.Deflate)
             {
-                AddDirectoryToArchive(archive, sourceDirectory, ParentDirectory);
-                using (var zipStream = File.OpenWrite(zipFilePath))
+                ArchiveEncoding = new ArchiveEncoding
                 {
-                    archive.SaveTo(zipStream, new WriterOptions(CompressionType.Deflate)
-                    {
-                        ArchiveEncoding = new ArchiveEncoding(System.Text.Encoding.UTF8, System.Text.Encoding.UTF8)
-                    });
+                    Default = System.Text.Encoding.UTF8,
+                    Password = System.Text.Encoding.UTF8
+                }
+            };
+
+            using (var zipStream = File.Create(zipFilePath))
+            using (var writer = WriterFactory.OpenWriter(zipStream, ArchiveType.Zip, options))
+            {
+                foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+                {
+                    writer.Write(Path.GetRelativePath(parentDirectory, file), file);
                 }
             }
-
         }
 
         static void AddDirectoryToArchive(SharpCompress.Archives.Zip.ZipArchive archive, string sourceDirectory, string baseDirectory)
