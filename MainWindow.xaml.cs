@@ -285,8 +285,10 @@ namespace BackupFoldersWPF
         {
             // Configure zip writer to use Deflate compression and UTF-8 encoding for entry names 
             var options = new WriterOptions(CompressionType.Deflate) { ArchiveEncoding = new ArchiveEncoding { Default = System.Text.Encoding.UTF8 } };
+
             // Create the output file stream and an archive writer that writes entries into the zip
             using (var zipStream = File.Create(zipFilePath))
+
             using (var writer = WriterFactory.OpenWriter(zipStream, ArchiveType.Zip, options))
             {
                 // Iterate every file under sourceDirectory (including subdirectories)
