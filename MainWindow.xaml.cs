@@ -287,8 +287,7 @@ namespace BackupFoldersWPF
             {
                 ArchiveEncoding = new ArchiveEncoding
                 {
-                    Default = System.Text.Encoding.UTF8,
-                    Password = System.Text.Encoding.UTF8
+                    Default = System.Text.Encoding.UTF8
                 }
             };
 
