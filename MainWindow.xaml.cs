@@ -283,20 +283,21 @@ namespace BackupFoldersWPF
 
         static void SelectZipType(string sourceDirectory, string zipFilePath, string parentDirectory)
         {
-            var options = new WriterOptions(CompressionType.Deflate)
-            {
-                ArchiveEncoding = new ArchiveEncoding
-                {
-                    Default = System.Text.Encoding.UTF8
-                }
-            };
-
+            // Configure zip writer to use Deflate compression and UTF-8 encoding for entry names 
+            var options = new WriterOptions(CompressionType.Deflate) { ArchiveEncoding = new ArchiveEncoding { Default = System.Text.Encoding.UTF8 } };
+            // Create the output file stream and an archive writer that writes entries into the zip
             using (var zipStream = File.Create(zipFilePath))
             using (var writer = WriterFactory.OpenWriter(zipStream, ArchiveType.Zip, options))
             {
+                // Iterate every file under sourceDirectory (including subdirectories)
                 foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
                 {
-                    writer.Write(Path.GetRelativePath(parentDirectory, file), file);
+                    // Compute the path to store inside the archive relative to parentDirectory.
+                    // This preserves folder structure inside the zip but trims off the parent prefix.
+                    string entryName = Path.GetRelativePath(parentDirectory, file);
+
+                    // Write the file into the archive using the computed entry name
+                    writer.Write(entryName, file);
                 }
             }
         }
