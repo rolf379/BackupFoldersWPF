@@ -7,7 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 using static GlobalAssemblyBackup.BackupAndCode;
-using static GlobalAssemblyReadFilesClass.My_XM_ReadFileClass;
+using static GlobalAssembly.ReadFiles.My_XM_ReadFileClass;
 using System.Windows.Threading;
 using System.Diagnostics;
 using SharpCompress.Archives;

@@ -1,5 +1,5 @@
 ﻿using static GlobalAssemblyBackup.BackupAndCode;
-using static GlobalAssemblyReadFilesClass.My_XM_ReadFileClass;
+using static GlobalAssembly.ReadFiles.My_XM_ReadFileClass;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
