@@ -312,24 +312,42 @@ namespace BackupFoldersWPF
             }
         }
 
+
         private void SelectTarBrType(string sourceDirectory, string[] excludedDirectories, string parentDirectory, string destinationFile)
         {
-            // 1. Create the final .tar.br file stream
-            using (var fileStream = File.Create(destinationFile))
-            // 2. Wrap it in a Brotli compression stream
-            using (var brotliStream = new System.IO.Compression.BrotliStream(fileStream, System.IO.Compression.CompressionLevel.Optimal))
-            // 3. Pass that stream into SharpCompress to write the Tar archive container
-            using (var writer = WriterFactory.OpenWriter(brotliStream, ArchiveType.Tar, new WriterOptions(CompressionType.None) { LeaveStreamOpen = false }))
+            // Use FileMode.Create to ensure we start with a clean file
+            using (var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write, FileShare.None))
+            // Wrap in Brotli, leave open so we can control disposal order
+            using (var brotliStream = new BrotliStream(fileStream, CompressionLevel.Optimal, leaveOpen: true))
             {
-                foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+                // IMPORTANT: LeaveStreamOpen = true here.
+                // This prevents SharpCompress from closing the Brotli stream
+                // before the TAR writer has finished writing its trailer.
+                var writerOptions = new WriterOptions(CompressionType.None)
                 {
-                    if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                    LeaveStreamOpen = true
+                };
+
+                using (var writer = WriterFactory.OpenWriter(brotliStream, ArchiveType.Tar, writerOptions))
+                {
+                    // Your logic to iterate through files and write them
+                    // Example: writer.WriteAll(sourceDirectory, "*", SearchOption.AllDirectories);
+                    // (Use your existing loop logic here)
+                    foreach (var file in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
                     {
-                        // Add file with relative path inside the tar.br
-                        writer.Write(Path.GetRelativePath(parentDirectory, file), file);
+                        if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                        {
+                            // You must provide a relative path for the archive entry
+                            string entryPath = file.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar);
+                            writer.Write(entryPath, file);
+                        }
                     }
                 }
+
+                // The `writer` is disposed here. Because LeaveStreamOpen is true,
+                // the Brotli stream remains open and contains the full TAR data.
             }
+            // The Brotli stream is disposed here, finalizing the .br file.
         }
 
         static void AddDirectoryToArchive(SharpCompress.Archives.Zip.ZipArchive archive, string sourceDirectory, string baseDirectory)
