@@ -105,12 +105,14 @@ Style="{StaticResource TextBlockFontStyle14}" Margin="10 10 0 0" Height="58" Wid
                              TextWrapping="Wrap" FontFamily="Arial" FontSize="16" Padding="5"
                              PreviewDragEnter="CompressTextBox_PreviewEnter" PreviewDragOver="CompressTextBox_PreviewDragOver" PreviewDrop="CompressTextBox_PreviewDrop"/>
                         <StackPanel Orientation="Horizontal" Margin="10 10 0 0" >
-                            <CheckBox x:Name="ClearCompressCheckBox" IsChecked="True" Content="Clear On Drop" FontSize="14" Foreground="White" Margin="20 0 10 0"/>
+                            <CheckBox x:Name="ClearCompressCheckBox" IsChecked="True" Content="Clear On Drop" FontSize="14" Foreground="White" Margin="0 0 10 0"/>
                             <CheckBox x:Name="DirectDropBackupCheckBox"  Content="Create On Drop" FontSize="14" Foreground="White" Margin="20 0 10 0"/>
                             <RadioButton x:Name="TarGzRadioButton" IsChecked="False" Margin="0 2 0 0"/>
                             <TextBlock Text="Tar.gz" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
                             <RadioButton x:Name="SevenZipRadioButton" IsChecked="False" Margin="0 2 0 0"/>
                             <TextBlock Text="7z" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
+                            <RadioButton x:Name="BrotliRadioButton" IsChecked="False" Margin="0 2 0 0"/>
+                            <TextBlock Text="Brotli" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
                             <RadioButton x:Name="ZipRadioButton" IsChecked="False" Margin="0 2 0 0"/>
                             <TextBlock Text="Zip" FontSize="14" Foreground="White" Margin="3 0 10 0"/>
                         </StackPanel>
