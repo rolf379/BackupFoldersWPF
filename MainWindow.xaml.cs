@@ -210,6 +210,10 @@ namespace BackupFoldersWPF
             {
                 FileType = ".zip";
             }
+            else if (BrotliRadioButton.IsChecked == true)
+            {
+                FileType = ".tar.br"; // Standard extension for Tar archives compressed with Brotli
+            }
 
             string destinationFile = Path.Combine(folderPath, Path.GetFileName(sourceDirectory),
                                                    Path.GetFileNameWithoutExtension(sourceDirectory) +
@@ -233,6 +237,10 @@ namespace BackupFoldersWPF
             else if (ZipRadioButton.IsChecked == true)
             {
                 SelectZipType(sourceDirectory, destinationFile, parentDirectory.Parent.FullName);
+            }
+            else if (BrotliRadioButton.IsChecked == true)
+            {
+                SelectTarBrType(sourceDirectory, excludedDirectories, parentDirectory.Parent.FullName, destinationFile);
             }
 
         }
@@ -300,6 +308,26 @@ namespace BackupFoldersWPF
 
                     // Write the file into the archive using the computed entry name
                     writer.Write(entryName, file);
+                }
+            }
+        }
+
+        private void SelectTarBrType(string sourceDirectory, string[] excludedDirectories, string parentDirectory, string destinationFile)
+        {
+            // 1. Create the final .tar.br file stream
+            using (var fileStream = File.Create(destinationFile))
+            // 2. Wrap it in a Brotli compression stream
+            using (var brotliStream = new System.IO.Compression.BrotliStream(fileStream, System.IO.Compression.CompressionLevel.Optimal))
+            // 3. Pass that stream into SharpCompress to write the Tar archive container
+            using (var writer = WriterFactory.OpenWriter(brotliStream, ArchiveType.Tar, new WriterOptions(CompressionType.None) { LeaveStreamOpen = false }))
+            {
+                foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+                {
+                    if (!BackupClass.IsExcludedDirectory(file, excludedDirectories))
+                    {
+                        // Add file with relative path inside the tar.br
+                        writer.Write(Path.GetRelativePath(parentDirectory, file), file);
+                    }
                 }
             }
         }
